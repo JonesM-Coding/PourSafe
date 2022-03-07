@@ -18,7 +18,7 @@ def getLatestDate(df):
     return datepull
 
 def getSchema(df, name):
-    engine = sqlalchemy.create_engine('postgresql://doadmin:yox1c9wy2onu8wtm@db-postgresql-sfo3-poursafe-do-user-9378326-0.b.db.ondigitalocean.com:25060/poursafe_data?sslmode=require', echo=True)
+    engine = sqlalchemy.create_engine('data', echo=True)
     check = engine.has_table(name)
     df = pd.read_csv(df, nrows=1)
     # if check == True:
@@ -30,7 +30,7 @@ def getSchema(df, name):
 
 
 def newData(df, name):
-    conn_string = 'postgresql://doadmin:yox1c9wy2onu8wtm@db-postgresql-sfo3-poursafe-do-user-9378326-0.b.db.ondigitalocean.com:25060/poursafe_data?sslmode=require'
+    conn_string = 'data'
     print(df)
     # perform to_sql test and print result
     drop_sql = "DROP TABLE IF EXISTS " + name
@@ -51,7 +51,7 @@ def newData(df, name):
     cur.close()
 
 def upsertData(df, old_df, new_df):
-    conn_string = 'postgresql://doadmin:yox1c9wy2onu8wtm@db-postgresql-sfo3-poursafe-do-user-9378326-0.b.db.ondigitalocean.com:25060/poursafe_data?sslmode=require'
+    conn_string = 'data'
     print(df)
     # perform to_sql test and print result
 

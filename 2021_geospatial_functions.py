@@ -28,7 +28,7 @@ def makeLine(name):
 
 def saveShapefile(df, name):
     shapefile = gpd.read_file(df)
-    conn_string = 'postgresql://doadmin:yox1c9wy2onu8wtm@db-postgresql-sfo3-poursafe-do-user-9378326-0.b.db.ondigitalocean.com:25060/poursafe_data?sslmode=require'
+    conn_string = 'data'
 
     engine = sqlalchemy.create_engine(conn_string)
     print("Pushing {0} to poursafe database".format(name))
@@ -36,7 +36,7 @@ def saveShapefile(df, name):
 
 
 def getGeocodes(df, list, name):
-    conn_string = 'postgresql://doadmin:yox1c9wy2onu8wtm@db-postgresql-sfo3-poursafe-do-user-9378326-0.b.db.ondigitalocean.com:25060/poursafe_data?sslmode=require'
+    conn_string = 'data'
     engine = sqlalchemy.create_engine(conn_string)
     query = "SELECT * from {0};".format(df)
     data = pd.read_sql(query, con=engine)

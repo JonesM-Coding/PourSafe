@@ -48,7 +48,7 @@ def initialGeocodes(df, name):
     summ_df = prev_df
     summ_df["UID_count"] = summ_df["UID"]
     summ = summ_df.groupby("UID", as_index=False)["UID_count"].nunique()
-    engine = create_engine('postgresql://doadmin:yox1c9wy2onu8wtm@db-postgresql-sfo3-poursafe-do-user-9378326-0.b.db.ondigitalocean.com:25060/poursafe_data?sslmode=require', echo=True)
+    engine = create_engine('data', echo=True)
     prev_df.to_sql(name, con=engine, if_exists='replace')
     prev_df.to_csv(r"C:\Users\miche\Desktop\2021_PourSafe\data\past_data/abc_geocodes.csv", index=False)
 
@@ -141,14 +141,14 @@ def processGeocode(name):
     new = new[(new["Coordinates"].notnull()) & (new["geo_score"] >= .7)]
     new["Latitude"] = new["Coordinates"].str.split(",").str[0].str.replace("(", "")
     new["Longitude"] = new["Coordinates"].str.split(",").str[-1].str.replace(")", "")
-    engine = create_engine('postgresql://doadmin:yox1c9wy2onu8wtm@db-postgresql-sfo3-poursafe-do-user-9378326-0.b.db.ondigitalocean.com:25060/poursafe_data?sslmode=require', echo=True)
+    engine = create_engine('data', echo=True)
     geocodes = pd.read_sql("SELECT * from abc_geocodes", con=engine)
     new_geocodes =  pd.concat([new, geocodes], axis=0, sort=False)
     new_geocodes.to_sql(name, con=engine, if_exists='replace')
 
 
 def mergeGeocode():
-    engine = create_engine('postgresql://doadmin:yox1c9wy2onu8wtm@db-postgresql-sfo3-poursafe-do-user-9378326-0.b.db.ondigitalocean.com:25060/poursafe_data?sslmode=require', echo=True)
+    engine = create_engine('data', echo=True)
 
     datepull = datetime.datetime.today().strftime("%Y%m%d")
     abc = pd.read_csv(r"C:\Users\miche\Desktop\2021_PourSafe\data\ca_abc\ABC_WeeklyDataExport_" + datepull + ".csv")
